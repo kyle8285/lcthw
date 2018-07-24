@@ -41,6 +41,7 @@ void Address_print(struct Address *addr)
 
 void Database_load(struct Connection *conn)
 {
+  // reads data from the FILE stream, storing them at the ptr location
   int rc = fread(conn->db, sizeof(struct Database), 1, conn->file);
   if (rc != 1)
     die("Failed to load database.");
@@ -57,15 +58,18 @@ struct Connection *Database_open(const char *filename, char mode)
     die("Memory error");
 
   if (mode == 'c') {
+    // truncate to zero length or create text file for writing. the stream is positioned at the beginning of the file.
     conn->file = fopen(filename, "w");
   } else {
+    // open for reading and writing. the stream is positioned at the beginning of the file.
     conn->file = fopen(filename, "r+");
 
+    // returns a FILE pointer...
     if (conn->file) {
       Database_load(conn);
     }
   }
-
+  // ...otherwise NULL is returned and the global variable 'errno' is set to indicate the error
   if (!conn->file)
     die("Failed to open the file");
 
@@ -85,6 +89,7 @@ void Database_close(struct Connection *conn)
 
 void Database_write(struct Connection *conn)
 {
+  // sets the file position indicator for the stream pointed to by 'stream' to the beginning of the file
   rewind(conn->file);
 
   int rc = fwrite(conn->db, sizeof(struct Database), 1, conn->file);
