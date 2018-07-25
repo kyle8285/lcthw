@@ -1,8 +1,8 @@
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -DNDEBUG
 
-all: ex18
+all: ex19
 
 clean:
-	rm -f ex18
-	rm -rf ex18.dSYM
+	rm -f ex19
+	rm -rf ex19.dSYM
 
