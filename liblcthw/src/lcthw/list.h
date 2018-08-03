@@ -17,7 +17,7 @@ typedef struct List {
   ListNode *last;
 } List;
 
-List *ListCreate(); // function that returns pointer to List
+List *List_create(); // function that returns pointer to List
 void List_destroy(List * list);
 void List_clear(List * list);
 void List_clear_destroy(List * list);
