@@ -1,5 +1,5 @@
-#include "lcthw/list.h"
-#include "lcthw/dbg.h"
+#include "list.h"
+#include "dbg.h"
 
 List *List_create()
 {
