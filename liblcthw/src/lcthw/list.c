@@ -12,10 +12,10 @@ void List_destroy(List * list)
     if (cur->prev) {
       free(cur->prev);
     }
-
-    free(list->last);
-    free(list);
   }
+
+  free(list->last);
+  free(list);
 }
 
 void List_clear(List * list)
