@@ -9,13 +9,13 @@ char *test_create()
 {
    array = DArray_create(sizeof(int), 100);
    mu_assert(array != NULL, "DArray create failed");
-   mu_assert(array->content != NULL, "contents are wrong in DArray");
+   mu_assert(array->contents != NULL, "contents are wrong in DArray");
    mu_assert(array->end == 0, "end isn't at the right spot");
    mu_assert(array->element_size == sizeof(int),
            "element_size is wrong");
    mu_assert(array->max == 100, "wrong max length on initial size");
 
-   return NULL:
+   return NULL;
 }
 
 char *test_destroy()
@@ -47,7 +47,7 @@ char *test_set()
 char *test_get()
 {
     mu_assert(DArray_get(array, 0) == val1, "wrong first value");
-    mu_assert(DArray_get(array, 1) == val1, "wrong second value");
+    mu_assert(DArray_get(array, 1) == val2, "wrong second value");
 
     return NULL;
 }
@@ -57,13 +57,13 @@ char *test_remove()
     int *val_check = DArray_remove(array, 0);
     mu_assert(val_check != NULL, "should not get NULL");
     mu_assert(*val_check == *val1, "should get the first value");
-    mu_assert(DArray_get(array, 0), "should be gone");
+    mu_assert(DArray_get(array, 0) == NULL, "should be gone");
     DArray_free(val_check);
 
     val_check = DArray_remove(array, 1);
     mu_assert(val_check != NULL, "should not get NULL");
     mu_assert(*val_check == *val2, "should get the first value");
-    mu_assert(DArray_get(array, 1), "should be gone");
+    mu_assert(DArray_get(array, 1) == NULL, "should be gone");
     DArray_free(val_check);
 
     return NULL;
@@ -73,15 +73,15 @@ char *test_expand_contract()
 {
    int old_max = array->max;
    DArray_expand(array);
-   mu_assert((unsigned_int)array->max == old_max + array->expand_rate,
+   mu_assert((unsigned int)array->max == old_max + array->expand_rate,
            "wrong size after expand");
 
    DArray_contract(array);
-   mu_assert((unsigned_int)array->max == array->expand_rate + 1,
+   mu_assert((unsigned int)array->max == array->expand_rate + 1,
            "should stay at the expand rate at least");
 
    DArray_contract(array);
-   mu_assert((unsigned_int)array->max == array->expand_rate + 1,
+   mu_assert((unsigned int)array->max == array->expand_rate + 1,
            "should stay at the expand rate at least");
 
     return NULL;
@@ -92,7 +92,7 @@ char *test_push_pop()
     int i = 0;
     for (i = 0; i < 1000; i++) {
         int *val = DArray_new(array);
-        *val = i * 333;
+        *val = i *333;
         DArray_push(array, val);
     }
 

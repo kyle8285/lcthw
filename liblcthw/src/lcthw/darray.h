@@ -25,7 +25,7 @@ int DArray_contract(DArray * array);
 
 int DArray_push(DArray * array, void *el);
 
-int *DArray_pop(DArray * array);
+void *DArray_pop(DArray * array);
 
 void DArray_clear_destroy(DArray * array);
 
